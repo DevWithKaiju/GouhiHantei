@@ -1,0 +1,5 @@
+# streamlit は st.html と [theme] font のフォントスタック指定を使うため 1.64 で検証
+streamlit>=1.64
+requests>=2.32.0
+beautifulsoup4>=4.12.0
+pypdf>=4.2.0

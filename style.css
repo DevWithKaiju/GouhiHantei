@@ -1,0 +1,143 @@
+/* 入学試験 合格者受験番号 照会 — 掲示物としての体裁
+ *
+ * 本文フォント（明朝）は .streamlit/config.toml の [theme] font で指定している。
+ * ここで全要素に font-family を上書きすると Streamlit のアイコン
+ * （Material Symbols の合字）まで潰れてしまうため、CSS では指定しない。 */
+
+:root {
+  --ink:         #1a2332;
+  --ink-strong:  #000000;
+  --ink-sub:     #55606f;
+  --rule:        #b9c0cb;
+  --rule-light:  #dde1e8;
+  --paper:       #ffffff;
+  --paper-tint:  #fcfcfd;
+  --paper-inset: #f7f8fa;
+  --pass:        #14532d;
+  --fail:        #6b2020;
+  --caution:     #7a4a00;
+}
+
+/* 受験番号の PDF や発表ページの URL は外部由来で、どこに出しても長くなりうる。
+   折り返しの指定は置き場所ごとに足さず、ここで一度だけ効かせる。
+   anywhere は「はみ出すときだけ折る」ので、和文や英単語の折り返しは変わらない。 */
+.stApp { overflow-wrap: anywhere; }
+
+.block-container { padding-top: 2.6rem; padding-bottom: 4rem; max-width: 760px; }
+body { background: var(--paper); }
+
+/* 見出し（掲示の題字） */
+.notice-head { text-align: center; margin-bottom: 2.2rem; }
+.notice-head .kicker {
+  font-size: 0.86rem; letter-spacing: 0.34em; color: var(--ink-sub);
+  margin-bottom: 0.7rem; padding-left: 0.34em;
+}
+.notice-head h1 {
+  font-weight: 600; color: var(--ink);
+  font-size: 1.86rem; letter-spacing: 0.2em; margin: 0 0 0.55rem;
+  padding-left: 0.2em; line-height: 1.5;
+}
+.notice-head .en {
+  font-size: 0.76rem; letter-spacing: 0.08em; color: var(--ink-sub);
+  font-style: italic; margin-bottom: 1.1rem;
+}
+.notice-head .rule {
+  border-top: 1px solid var(--ink);
+  border-bottom: 3px double var(--ink);
+  height: 4px;
+}
+
+/* 節見出し */
+.section {
+  display: flex; align-items: baseline; gap: 0.7rem;
+  margin: 2.1rem 0 0.9rem; padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--rule);
+}
+.section .num {
+  font-size: 0.78rem; letter-spacing: 0.1em; color: var(--paper);
+  background: var(--ink); padding: 0.16rem 0.6rem; flex: none;
+}
+.section .ttl {
+  font-size: 1.04rem; letter-spacing: 0.14em; color: var(--ink); font-weight: 600;
+}
+
+/* 照会結果の枠 */
+.verdict {
+  border: 3px double var(--ink);
+  padding: 2.1rem 1.5rem 1.8rem;
+  text-align: center;
+  margin: 1.4rem 0 1.2rem;
+  background: var(--paper-tint);
+}
+.verdict .cap {
+  font-size: 0.76rem; letter-spacing: 0.4em; color: var(--ink-sub);
+  padding-left: 0.4em; margin-bottom: 1.2rem;
+}
+.verdict .main {
+  font-size: 3rem; letter-spacing: 0.5em; padding-left: 0.5em;
+  font-weight: 600; line-height: 1.25; margin-bottom: 0.2rem;
+}
+.verdict .note {
+  font-size: 0.97rem; color: var(--ink); margin-top: 1.1rem; line-height: 1.85;
+}
+.verdict .sub {
+  font-size: 0.83rem; color: var(--ink-sub); margin-top: 0.5rem; line-height: 1.8;
+}
+.verdict.pass          { border-color: var(--pass); }
+.verdict.pass .main    { color: var(--pass); }
+.verdict.fail          { border-color: var(--rule); }
+.verdict.fail .main    { color: var(--fail); }
+.verdict.caution       { border-color: var(--caution); }
+.verdict.caution .main { color: var(--caution); font-size: 2rem; letter-spacing: 0.35em; }
+
+/* 照会明細 */
+table.detail {
+  width: 100%; border-collapse: collapse; font-size: 0.87rem; margin: 0.4rem 0 0.6rem;
+}
+table.detail th, table.detail td {
+  border-bottom: 1px solid var(--rule-light);
+  padding: 0.6rem 0.5rem; text-align: left; vertical-align: top;
+}
+table.detail th {
+  width: 9.5em; font-weight: 600; color: var(--ink-sub);
+  letter-spacing: 0.08em; white-space: nowrap;
+}
+table.detail td { color: var(--ink); }
+
+.lead { color: var(--ink-sub); font-size: 0.9rem; line-height: 1.9; }
+.note-small { color: var(--ink-sub); font-size: 0.79rem; line-height: 1.85; }
+
+.url-text {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.72rem; line-height: 1.75; color: var(--ink-sub);
+  background: var(--paper-inset); border: 1px solid var(--rule-light);
+  padding: 0.65rem 0.75rem; margin: 0.2rem 0 0.9rem;
+}
+
+/* 折りたたみ部分も掲示物の体裁にそろえる */
+div[data-testid="stExpander"] details {
+  border: 1px solid var(--rule); background: var(--paper);
+}
+div[data-testid="stExpander"] summary {
+  font-size: 0.88rem; letter-spacing: 0.1em; color: var(--ink);
+}
+
+/* 部品を掲示物になじませる（角は落とす） */
+.stButton button, .stDownloadButton button,
+div[data-testid="stExpander"] details,
+.stTextInput input, .stSelectbox div[data-baseweb="select"] > div {
+  border-radius: 0;
+}
+.stButton button, .stDownloadButton button {
+  border: 1px solid var(--ink); background: var(--paper);
+  color: var(--ink); letter-spacing: 0.18em; padding: 0.55rem 1rem; font-weight: 600;
+}
+.stButton button:hover, .stDownloadButton button:hover {
+  background: var(--ink); color: var(--paper); border-color: var(--ink);
+}
+.stButton button[kind="primary"] { background: var(--ink); color: var(--paper); }
+.stButton button[kind="primary"]:hover { background: var(--ink-strong); }
+.stTextInput input, .stSelectbox div[data-baseweb="select"] > div {
+  border-color: var(--rule);
+}
+hr { border-color: var(--rule-light); }

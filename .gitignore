@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.DS_Store
+
+# Streamlit の秘密情報（API キーや接続情報）。今は無いが、置かれたら決して追跡しない。
+# 一方 .streamlit/config.toml は本文フォントとテーマ色を持つので追跡する。
+.streamlit/secrets.toml

@@ -1,0 +1,15 @@
+[browser]
+gatherUsageStats = false
+
+[server]
+runOnSave = true
+
+[theme]
+base = "light"
+# 本文フォント。CSS で全要素に指定するとアイコン（Material Symbols の合字）
+# まで潰れてしまうため、Streamlit 自身の仕組みで指定する。
+font = '"Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", "Songti SC", "Times New Roman", serif'
+primaryColor = "#1a2332"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f4f5f7"
+textColor = "#1a2332"
